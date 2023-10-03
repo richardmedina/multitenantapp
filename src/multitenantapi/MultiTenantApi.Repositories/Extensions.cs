@@ -16,6 +16,7 @@ namespace MultiTenantApi.Repositories
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IItemRepository, ItemRepository>();
         }
     }
 }

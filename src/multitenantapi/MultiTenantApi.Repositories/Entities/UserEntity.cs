@@ -1,4 +1,5 @@
 ﻿using MultiTenantApi.Repositories.Constants;
+using MultiTenantApi.Repositories.Types;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace MultiTenantApi.Repositories.Entities
 {
-    [Table(TableNames.User)]
-    public class UserEntity
+    [Table(TableNames.Users)]
+    public class UserEntity : IEntityType
     {
         public Guid Id { get; set; }
         public string Email { get; set; }

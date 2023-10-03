@@ -10,7 +10,9 @@ namespace MultiTenantApi.Repositories
 {
     public class MultiTenantApiDbContext : DbContext
     {
-        public DbSet<UserEntity> Users { get; set; } = null!;
+        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<ItemEntity> Items { get; set; }
+
         public MultiTenantApiDbContext(DbContextOptions options) : base(options)
         {
         }

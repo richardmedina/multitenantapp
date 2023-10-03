@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MultiTenantApi.Contract.Domain.Types;
 
 namespace MultiTenantApi.Contract.Domain
 {
-    public class UserDomain
+    public class UserDomain : IDomainType
     {
         public Guid Id { get; set; }
         public string Email { get; set; }

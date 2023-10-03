@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using MultiTenantApi.Common.Repositories;
 using MultiTenantApi.Contract.Domain;
+using MultiTenantApi.Contract.Domain.Types;
 using MultiTenantApi.Repositories.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace MultiTenantApi.Repositories.Repos
 {
-    public class UserRepository : RepositoryBase<UserEntity, UserDomain>, IUserRepository
+    public class ItemRepository : RepositoryBase<ItemEntity, ItemDomain>, IItemRepository
     {
-        public UserRepository(MultiTenantApiDbContext context, IMapper mapper) : base(context, mapper)
+        public ItemRepository(MultiTenantApiDbContext context, IMapper mapper) : base(context, mapper)
         {
         }
     }

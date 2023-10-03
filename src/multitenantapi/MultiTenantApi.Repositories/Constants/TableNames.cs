@@ -8,6 +8,8 @@ namespace MultiTenantApi.Repositories.Constants
 {
     internal static class TableNames
     {
-        public const string User = "Users";
+        public const string Users = "Users";
+        public const string Items = "Items";
+
     }
 }
