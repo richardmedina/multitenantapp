@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using MultiTenantApi.Common.Repositories;
 using MultiTenantApi.Contract.Domain;
-using MultiTenantApi.Repositories.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MultiTenantApi.Infrastructure.Data;
+using MultiTenantApi.Infrastructure.Data.Entities;
 
-namespace MultiTenantApi.Repositories.Repos
+namespace MultiTenantApi.Repositories
 {
     public class UserRepository : RepositoryBase<UserEntity, UserDomain>, IUserRepository
     {

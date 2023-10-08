@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MultiTenantApi.Contract.Domain;
-using MultiTenantApi.Repositories.Entities;
+using MultiTenantApi.Infrastructure.Data.Entities;
 
 namespace MultiTenantApi.Repositories.AutoMapper
 {

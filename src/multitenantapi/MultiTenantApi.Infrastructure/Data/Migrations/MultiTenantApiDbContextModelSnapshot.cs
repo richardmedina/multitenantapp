@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MultiTenantApi.Repositories;
+using MultiTenantApi.Infrastructure.Data;
 
 #nullable disable
 
-namespace MultiTenantApi.Repositories.Migrations
+namespace MultiTenantApi.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MultiTenantApiDbContext))]
-    [Migration("20231003040435_ItemsTable")]
-    partial class ItemsTable
+    partial class MultiTenantApiDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +22,7 @@ namespace MultiTenantApi.Repositories.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MultiTenantApi.Repositories.Entities.ItemEntity", b =>
+            modelBuilder.Entity("MultiTenantApi.Infrastructure.Data.Entities.ItemEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +53,7 @@ namespace MultiTenantApi.Repositories.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("MultiTenantApi.Repositories.Entities.UserEntity", b =>
+            modelBuilder.Entity("MultiTenantApi.Infrastructure.Data.Entities.UserEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

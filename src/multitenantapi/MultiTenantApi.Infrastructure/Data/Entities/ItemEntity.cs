@@ -1,13 +1,8 @@
-﻿using MultiTenantApi.Repositories.Constants;
-using MultiTenantApi.Repositories.Types;
-using System;
-using System.Collections.Generic;
+﻿using MultiTenantApi.Infrastructure.Data.Constants;
+using MultiTenantApi.Infrastructure.Data.Types;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MultiTenantApi.Repositories.Entities
+namespace MultiTenantApi.Infrastructure.Data.Entities
 {
     [Table(TableNames.Items)]
     public class ItemEntity : IEntityType, ITrackableEntityType

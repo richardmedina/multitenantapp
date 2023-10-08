@@ -1,16 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MultiTenantApi.Contract.Domain.Types;
-using MultiTenantApi.Repositories.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MultiTenantApi.Infrastructure.Data;
+using MultiTenantApi.Infrastructure.Data.Types;
 
-namespace MultiTenantApi.Repositories.Repos
+namespace MultiTenantApi.Repositories
 {
-    public abstract class RepositoryBase<TEntityType, TDomainType> 
+    public abstract class RepositoryBase<TEntityType, TDomainType>
         where TEntityType : class, IEntityType
         where TDomainType : class, IDomainType
     {
@@ -65,7 +61,7 @@ namespace MultiTenantApi.Repositories.Repos
         public async Task DeleteAsync(Guid id)
         {
             var entity = await dbSet.SingleAsync(entity => entity.Id == id);
-            
+
             Context.Remove(entity);
             await Context.SaveChangesAsync();
         }

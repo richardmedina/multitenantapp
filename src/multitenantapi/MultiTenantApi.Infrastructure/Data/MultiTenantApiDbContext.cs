@@ -1,12 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MultiTenantApi.Repositories.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MultiTenantApi.Infrastructure.Data.Entities;
 
-namespace MultiTenantApi.Repositories
+namespace MultiTenantApi.Infrastructure.Data
 {
     public class MultiTenantApiDbContext : DbContext
     {

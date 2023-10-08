@@ -1,11 +1,4 @@
-﻿using MultiTenantApi.Repositories.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MultiTenantApi.Repositories.Types
+﻿namespace MultiTenantApi.Infrastructure.Data.Types
 {
     public interface ITrackableEntityType
     {

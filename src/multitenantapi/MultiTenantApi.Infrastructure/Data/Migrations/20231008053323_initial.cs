@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MultiTenantApi.Repositories.Migrations
+namespace MultiTenantApi.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class ItemsTable : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,6 +27,27 @@ namespace MultiTenantApi.Repositories.Migrations
                 {
                     table.PrimaryKey("PK_Items", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "UserName" },
+                values: new object[] { new Guid("dab12ee2-8c61-4863-8d19-aec3f278ae01"), "admin@admin.com", "admin", "admin", "admin", "admin" });
         }
 
         /// <inheritdoc />
@@ -34,6 +55,9 @@ namespace MultiTenantApi.Repositories.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Items");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
