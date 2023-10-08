@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using MultiTenantApi.Common.Services;
 using MultiTenantApi.Contract.Services.User;
 using MultiTenantApi.Models.User;
@@ -38,12 +39,20 @@ namespace MultiTenantApi.Controllers
         }
 
 
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> Get(Guid userId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
         {
-            var userDto = _mapper.Map<UserModel>(await _userService.GetAsync(userId));
+            var userDto = _mapper.Map<UserModel>(await _userService.GetAsync(id));
 
             return userDto == null ? NotFound() : Ok(userDto);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await _userService.DeleteAsync(id);
+
+            return result ? Ok() : NotFound();
         }
     }
 }
