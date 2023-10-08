@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MultiTenantApi.Common.Services;
 using MultiTenantApi.Services.AutoMapper;
+using MultiTenantApi.Services.Item;
 using MultiTenantApi.Services.User;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace MultiTenantApi.Services
         {
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IItemService, ItemService>();
         }
     }
 }

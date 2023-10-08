@@ -10,6 +10,8 @@ namespace MultiTenantApi.Repositories.AutoMapper
         {
             CreateMap<UserDomain, UserEntity>()
                 .ReverseMap();
+            CreateMap<ItemDomain, ItemEntity>()
+                .ReverseMap();
         }
     }
 }

@@ -16,11 +16,12 @@ namespace MultiTenantApi.Repositories.Entities
         public string Name { get; set; }
         public string Description { get; set; }
 
-    #region ITrackableEntity
+        #region ITrackableEntity
         public Guid CreatedBy { get; set; }
         public DateTime CreatedTimestamp { get; set; }
         public Guid UpdatedBy { get; set; }
         public DateTime UpdatedTimestamp { get; set; }
+        #endregion
     }
-    #endregion
+
 }
