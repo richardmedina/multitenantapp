@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MultiTenantApi.Common.Services;
@@ -7,6 +8,7 @@ using MultiTenantApi.Models.Item;
 
 namespace MultiTenantApi.Controllers
 {
+    [Authorize(Roles = "User,Admin")]
     [Route("[controller]")]
     [ApiController]
     public class ItemController : ControllerBase
