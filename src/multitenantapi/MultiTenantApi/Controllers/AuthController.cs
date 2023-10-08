@@ -20,7 +20,7 @@ namespace MultiTenantApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Authenticate([FromBody] UserCredentialsModel userCredentials)
         {
-            var user = await _userService.GetFromUserName(userCredentials.UserName);
+            var user = await _userService.GetFromUserNameAsync(userCredentials.UserName);
 
             if(user != null && userCredentials.UserName == user.UserName && userCredentials.Password == user.Password)
             {
@@ -44,7 +44,13 @@ namespace MultiTenantApi.Controllers
                 }
             }
 
-            return Unauthorized();
+            return Unauthorized();  
+        }
+
+        [HttpDelete]
+        public void DeAuthenticate()
+        {
+
         }
     }
 }
