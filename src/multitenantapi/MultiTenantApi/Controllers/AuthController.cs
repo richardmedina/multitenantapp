@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MultiTenantApi.Common.Services;
 using MultiTenantApi.Infrastructure.JwtAuth;
 using MultiTenantApi.Infrastructure.JwtAuth.Dto;
 using MultiTenantApi.Models.Auth;
@@ -10,30 +11,37 @@ namespace MultiTenantApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IJwtAuthService _jwtAuthService;
-        public AuthController(IJwtAuthService jwtAuthService)
+        private readonly IUserService _userService;
+        public AuthController(IJwtAuthService jwtAuthService, IUserService userService)
         {
             _jwtAuthService = jwtAuthService;
+            _userService = userService;
         }
         [HttpPost]
         public async Task<IActionResult> Authenticate([FromBody] UserCredentialsModel userCredentials)
         {
-            if(userCredentials.UserName == "admin" && userCredentials.Password == "admin")
+            var user = await _userService.GetFromUserName(userCredentials.UserName);
+
+            if(user != null && userCredentials.UserName == user.UserName && userCredentials.Password == user.Password)
             {
                 var authenticatedUser = await _jwtAuthService.AuthenticateAsync(new JwtAuthenticateData
                 {
-                    UserId = Guid.NewGuid(),
-                    UserName = "admin",
-                    Email = "admin@domain.com",
-                    FirstName = "Admin",
-                    LastName = "Administrador"
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
                 });
 
-                var userToken = new UserTokenModel
+                if (authenticatedUser != null)
                 {
-                    Token = authenticatedUser.Token
-                };
+                    var userToken = new UserTokenModel
+                    {
+                        Token = authenticatedUser.Token
+                    };
 
-                return Ok(userToken);
+                    return Ok(userToken);
+                }
             }
 
             return Unauthorized();

@@ -14,5 +14,6 @@ namespace MultiTenantApi.Common.Services
         Task<IEnumerable<UserDto>> GetAllAsync();
         Task<bool> UpdateAsync(UserDto userDto);
         Task<bool> DeleteAsync(Guid id);
+        Task<UserDto?> GetFromUserName(string userName);
     }
 }

@@ -14,5 +14,6 @@ namespace MultiTenantApi.Common.Repositories
         Task<UserDomain> CreateAsync(UserDomain user);
         Task UpdateAsync(UserDomain user);
         Task DeleteAsync(Guid user);
+        Task<UserDomain?> GetFromUserNameAsync(string userName);
     }
 }

@@ -105,6 +105,11 @@ namespace MultiTenantApi.Services.User
             return true;
         }
 
+        public async Task<UserDto?> GetFromUserName(string userName)
+        {
+            var userDomain = await _userRepository.GetFromUserNameAsync(userName);
 
+            return _mapper.Map<UserDto>(userDomain);
+        }
     }
 }
