@@ -12,7 +12,7 @@ namespace MultiTenantApi.Infrastructure.JwtAuth
 {
     public class JwtAuthService : IJwtAuthService
     {
-        public async Task<JwtAuthenticatedUser> AuthenticateAsync(JwtAuthenticateData authenticateData)
+        public async Task<JwtAuthenticatedUser?> AuthenticateAsync(JwtAuthenticateData authenticateData)
         {
             await Task.Yield();
 

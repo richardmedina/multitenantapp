@@ -6,6 +6,7 @@ using MultiTenantApi.Infrastructure.Data;
 using MultiTenantApi.Infrastructure.Data.Entities;
 using MultiTenantApi.Infrastructure.JwtAuth;
 using MultiTenantApi.Infrastructure.JwtAuth.Dto;
+using MultiTenantApi.Infrastructure.Mfa;
 
 namespace MultiTenantApi.Infrastructure
 {
@@ -31,6 +32,7 @@ namespace MultiTenantApi.Infrastructure
             });
 
             services.AddScoped<IJwtAuthService, JwtAuthService>();
+            services.AddSingleton<IMfaService, MfaService>();
         }
     }
 }

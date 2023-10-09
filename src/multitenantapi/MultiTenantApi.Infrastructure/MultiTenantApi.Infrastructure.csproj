@@ -14,6 +14,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="TwoFactorAuth.Net" Version="1.4.0" />
+    <PackageReference Include="TwoFactorAuth.Net.QRCoder" Version="1.0.2" />
   </ItemGroup>
 
 </Project>

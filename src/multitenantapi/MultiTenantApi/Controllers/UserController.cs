@@ -27,7 +27,9 @@ namespace MultiTenantApi.Controllers
 
             var createdUser = await _userService.CreateAsync(userDto);
 
-            return Ok(createdUser);
+            return File(createdUser.ByteArray, "image/png");
+
+            //return Ok(createdUser);
         }
 
         [HttpGet]

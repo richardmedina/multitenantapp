@@ -5,6 +5,7 @@ using MultiTenantApi.Common.Services;
 using MultiTenantApi.Common.Utils;
 using MultiTenantApi.Contract.Domain;
 using MultiTenantApi.Contract.Services.User;
+using MultiTenantApi.Infrastructure.Mfa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,22 +20,35 @@ namespace MultiTenantApi.Services.User
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
-        public UserService(IUserRepository userRepository, IMapper mapper, ILogger<UserService> logger)
+        private readonly IMfaService _mfaService;
+        public UserService(
+            IUserRepository userRepository,
+            IMapper mapper,
+            ILogger<UserService> logger,
+            IMfaService mfaService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _logger = logger;
+            _mfaService = mfaService;
         }
         public async Task<UserDto> CreateAsync(UserDto userDto)
         {
             _logger.LogInformation(LogFormater.Format("Creating user", userDto));
 
             var userDomain = _mapper.Map<UserDomain>(userDto);
+            userDomain.MfaRequired = true;
+            var mfaCodeData = await _mfaService.GenerateQrCodeDataAsync(userDto.UserName);
+            userDomain.MfaSecret = mfaCodeData.Secret;
+
             var createdUserDomain = await _userRepository.CreateAsync(userDomain);
 
             _logger.LogInformation(LogFormater.Format("Created User"));
 
-            return _mapper.Map<UserDto>(createdUserDomain);
+            var createdUserDto = _mapper.Map<UserDto>(createdUserDomain);
+            createdUserDto.ByteArray = mfaCodeData.ImageByteArray;
+
+            return createdUserDto;
         }
 
         public async Task<bool> DeleteAsync(Guid id)

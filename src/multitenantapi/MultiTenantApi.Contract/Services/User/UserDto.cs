@@ -14,5 +14,8 @@ namespace MultiTenantApi.Contract.Services.User
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
+        public bool MfaRequired { get; set; }
+        public string MfaSecret { get; set; }
+        public byte[] ByteArray { get; set; }
     }
 }

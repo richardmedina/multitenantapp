@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using MultiTenantApi.Common.Services;
+using MultiTenantApi.Contract.Services.Authentication;
 using MultiTenantApi.Infrastructure.JwtAuth;
 using MultiTenantApi.Infrastructure.JwtAuth.Dto;
 using MultiTenantApi.Models.Auth;
@@ -10,47 +12,27 @@ namespace MultiTenantApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IJwtAuthService _jwtAuthService;
-        private readonly IUserService _userService;
-        public AuthController(IJwtAuthService jwtAuthService, IUserService userService)
+        private readonly IAuthenticationService _authenticationService;
+        private readonly IMapper _mapper;
+        public AuthController(
+            IAuthenticationService authenticationService,
+            IUserService userService,
+            IMapper mapper)
         {
-            _jwtAuthService = jwtAuthService;
-            _userService = userService;
+            _authenticationService = authenticationService;
+            _mapper = mapper;
         }
+
         [HttpPost]
-        public async Task<IActionResult> Authenticate([FromBody] UserCredentialsModel userCredentials)
+        public async Task<IActionResult> Authenticate([FromBody] UserCredentialModel userCredential)
         {
-            var user = await _userService.GetFromUserNameAsync(userCredentials.UserName);
+            var usercredentialDto = _mapper.Map<UserCredentialDto>(userCredential);
 
-            if(user != null && userCredentials.UserName == user.UserName && userCredentials.Password == user.Password)
-            {
-                var authenticatedUser = await _jwtAuthService.AuthenticateAsync(new JwtAuthenticateData
-                {
-                    UserId = user.Id,
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName
-                });
+            var authenticationResult = await _authenticationService.AuthenticateAsync(usercredentialDto);
 
-                if (authenticatedUser != null)
-                {
-                    var userToken = new UserTokenModel
-                    {
-                        Token = authenticatedUser.Token
-                    };
-
-                    return Ok(userToken);
-                }
-            }
-
-            return Unauthorized();  
-        }
-
-        [HttpDelete]
-        public void DeAuthenticate()
-        {
-
+            return authenticationResult.IsSuccess
+                ? Ok(authenticationResult.Token)
+                : Unauthorized();   
         }
     }
 }

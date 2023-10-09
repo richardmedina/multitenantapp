@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MultiTenantApi.Common.Services;
+using MultiTenantApi.Services.Authentication;
 using MultiTenantApi.Services.AutoMapper;
 using MultiTenantApi.Services.Item;
 using MultiTenantApi.Services.User;
@@ -18,6 +19,7 @@ namespace MultiTenantApi.Services
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
         }
     }
 }
